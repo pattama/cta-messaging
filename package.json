@@ -1,0 +1,41 @@
+{
+  "name": "cta-messaging",
+  "version": "1.0.0",
+  "description": "cta opensource messaging tool",
+  "author": "CTA Team <cta@thomsonreuters.com>",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "_mocha test/index.js",
+    "codecoverage": "istanbul cover node_modules/mocha/bin/_mocha -- -R spec && opener ./coverage/lcov-report/index.html",
+    "docs": "jsdoc --readme README.md lib -r -d docs && opener ./docs/index.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@git.sami.int.thomsonreuters.com:compass/cta-messaging.git"
+  },
+  "engines": {
+    "node": "4.2.2"
+  },
+  "devDependencies": {
+    "babel-eslint": "~4.1.5",
+    "chai": "~3.4.0",
+    "chai-as-promised": "~5.1.0",
+    "co-sleep": "0.0.1",
+    "eslint": "~1.9.0",
+    "eslint-config-airbnb": "~1.0.0",
+    "eslint-plugin-react": "~3.9.0",
+    "istanbul": "~0.4.1",
+    "jsdoc": "~3.4.0",
+    "mocha": "~2.3.4",
+    "moment": "~2.11.1",
+    "opener": "~1.4.0",
+    "sinon": "~1.17.0"
+  },
+  "license": "Apache-2.0",
+  "dependencies": {
+    "amqplib": "~0.4.0",
+    "co": "~4.6.0",
+    "lodash": "~4.11.0",
+    "shortid": "~2.2.4"
+  }
+}
