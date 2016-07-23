@@ -6,7 +6,7 @@
 require it like this
 
 ````javascript
-const Messaging = require('cta-messaging');
+const lib = require('cta-messaging');
 ````
 
 Then you can choose a provider
@@ -16,8 +16,9 @@ Then you can choose a provider
 ### RabbitMQ provider
 
 ````javascript
-const Messaging = require('cta-messaging');
-const messaging = new Messaging('rabbitmq', {url: 'amqp://my.mq.host'});
+const lib = require('cta-messaging');
+const messaging = lib('rabbitmq', {url: 'amqp://my.mq.host'});
+// or const messaging = require('cta-messaging')(); // to use default provider with default options
 ````
 
 This provider uses amqplib node module
