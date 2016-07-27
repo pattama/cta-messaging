@@ -59,19 +59,13 @@ module.exports = {
   ],
   subscribe: [
     {
-      message: 'reject subscribe with missing param key',
-      params: {
-        cb: function() {},
-      },
-    },
-    {
       message: 'reject subscribe with missing param cb',
       params: {
-        queue: 'test_key',
+        queue: 'test_queue',
       },
     },
     {
-      message: 'reject subscribe with wrong param type key',
+      message: 'reject subscribe with wrong param type queue',
       params: {
         queue: {},
         cb: function() {},
@@ -80,26 +74,20 @@ module.exports = {
     {
       message: 'reject subscribe with wrong param type cb',
       params: {
-        queue: 'test_key',
+        queue: 'test_queue',
         cb: 'abc',
       },
     },
   ],
   publish: [
     {
-      message: 'reject publish with missing param key',
-      params: {
-        json: {},
-      },
-    },
-    {
       message: 'reject publish with missing param json',
       params: {
-        queue: 'test_key',
+        queue: 'test_queue',
       },
     },
     {
-      message: 'reject publish with wrong param type key',
+      message: 'reject publish with wrong param type queue',
       params: {
         queue: {},
         json: {},
@@ -108,7 +96,7 @@ module.exports = {
     {
       message: 'reject publish with wrong param type json',
       params: {
-        queue: 'test_key',
+        queue: 'test_queue',
         json: 123,
       },
     },
