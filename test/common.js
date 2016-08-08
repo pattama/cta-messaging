@@ -12,8 +12,6 @@ module.exports = {
   co: require('co'),
   sleep: require('co-sleep'),
   lib: require('../lib'),
-  messaging: require('../lib/messaging.js'),
-  fn: require('../lib/fn.js'),
   providers: require('../lib/providers'),
   rmq: require('../lib/providers/rabbitmq'),
   json: function() {
