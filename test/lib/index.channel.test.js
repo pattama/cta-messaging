@@ -1,13 +1,12 @@
 'use strict';
 
 const o = require('../common');
-describe('functional: create channel retries', function() {
+describe('create channel retries', function() {
   it('should retry on failure', function(done) {
     let create;
-    const provider = o.rmq({newInstance: true});
+    const provider = o.lib();
     return o.co(function* coroutine() {
       provider.config.reChannelAfter = 200;
-      // const clock = o.sinon.useFakeTimers();
       yield provider._connect(false);
       create = o.sinon.stub(provider.connection, 'createConfirmChannel', function(cb) {
         cb('error', null);

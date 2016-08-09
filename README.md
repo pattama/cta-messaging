@@ -13,12 +13,25 @@ Then you can choose a provider
 
 ## Providers
 
-### RabbitMQ provider
+### RabbitMQ provider (default)
+
+Use default provider (rabbitmq) with default parameters (localhost)
+
+````javascript
+const messaging = require('cta-messaging')();
+````
+
+Use with custom parameters
 
 ````javascript
 const Messaging = require('cta-messaging');
-const messaging = new Messaging({provider: 'rabbitmq', url: 'amqp://my.rmq.host'});
-// or const messaging = require('cta-messaging')(); // to use default provider with default options
+const messaging = new Messaging({}, {
+  name: 'messaging',
+  provider: 'rabbitmq',
+  parameters: {
+    url: 'amqp://my.rmq.host',
+  },
+});
 ````
 
 This provider uses amqplib node module
@@ -85,7 +98,7 @@ See samples/basic/consume.js
 
 ### Subscribe
 
-This method registers a subscriber to listen to a queue in an exchange and consume messages as soon as they are produced.
+This method registers a subscriber to listen to a topic in an exchange and consume messages as soon as they are produced.
 
 Unlike a consumer, a subscriber will proceed with all messages in the queue.
 
@@ -98,7 +111,7 @@ function cb(json) {
   });
 }
 messaging.subscribe({
-  queue: 'cta-subscribe-sample',
+  topic: 'cta-subscribe-sample',
   cb: cb,
 }).then(function(response) {
   console.log('response: ', response);
@@ -122,7 +135,7 @@ const json = {
   description: 'simple test',
 };
 messaging.publish({
-  queue: 'cta-subscribe-sample',
+  topic: 'cta-subscribe-sample',
   json: json,
 }).then(function(response) {
   console.log('response: ', response);

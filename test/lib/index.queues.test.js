@@ -1,12 +1,12 @@
 'use strict';
 
-const o = require('../../../../common');
-describe('unit: rabbitmq consume', function() {
+const o = require('../common');
+describe('produce/consume in queues', function() {
   it('consume with ack set to resolve', function(done) {
     return o.co(function* coroutine() {
-      const provider = o.rmq({newInstance: true});
+      const provider = o.lib();
       yield provider._init();
-      const ack = o.sinon.stub(provider.channel, 'ack');
+      const _ack = o.sinon.stub(provider.channel, 'ack');
       const queue = o.shortid.generate();
       const json = {
         id: '01',
@@ -25,7 +25,8 @@ describe('unit: rabbitmq consume', function() {
       setTimeout(function() {
         o.sinon.assert.calledOnce(spy);
         o.sinon.assert.calledWith(spy, json);
-        o.sinon.assert.calledOnce(ack);
+        _ack.restore();
+        o.sinon.assert.calledOnce(_ack);
         done();
       }, 100);
     })
@@ -36,7 +37,7 @@ describe('unit: rabbitmq consume', function() {
 
   it('consume with ack set to auto', function(done) {
     return o.co(function* coroutine() {
-      const provider = o.rmq({newInstance: true});
+      const provider = o.lib();
       yield provider._init();
       const _ack = o.sinon.stub(provider.channel, 'ack');
       const queue = o.shortid.generate();
@@ -69,8 +70,8 @@ describe('unit: rabbitmq consume', function() {
         done();
       }, 300);
     })
-      .catch((err) => {
-        done(err);
-      });
+    .catch((err) => {
+      done(err);
+    });
   });
 });

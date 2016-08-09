@@ -7,7 +7,7 @@ function cb(json) {
   });
 }
 messaging.subscribe({
-  queue: 'cta-subscribe-sample',
+  topic: 'cta-subscribe-sample',
   cb: cb,
 }).then(function(response) {
   console.log('response: ', response);

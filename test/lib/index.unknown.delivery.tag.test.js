@@ -1,10 +1,10 @@
 'use strict';
 
 const o = require('../common');
-const io = o.rmq({newInstance: true});
+const io = o.lib();
 const queue = o.shortid.generate();
 
-describe('functional: handle unknown delivery tag', function() {
+describe('Handle unknown delivery tag', function() {
   it('should redeliver non acked message', function(done) {
     return o.co(function* coroutine() {
       yield io._connect(false);
