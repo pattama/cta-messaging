@@ -7,7 +7,7 @@ const json = {
   description: 'simple test',
 };
 messaging.publish({
-  queue: 'cta-subscribe-sample',
+  topic: 'cta-subscribe-sample',
   json: json,
 }).then(function(response) {
   console.log('response: ', response);

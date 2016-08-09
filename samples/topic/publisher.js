@@ -16,4 +16,4 @@ function fn() {
   });
 }
 
-setInterval(fn, 500);
+setInterval(fn, 2000);

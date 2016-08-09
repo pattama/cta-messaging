@@ -1,4 +1,4 @@
-This sample illustrate how to use cta-messaging to fanout messages (eg. notifications) to multiple destinations
+This sample illustrate how to use cta-messaging to broadcast messages (eg. notifications) to multiple destinations
 
 Start two consoles (or more) to run different instances of subscriber
 
