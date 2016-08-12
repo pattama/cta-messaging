@@ -1,6 +1,6 @@
 'use strict';
 
-const messaging = require('cta-messaging')();
+const messaging = require('../../lib')();
 
 function fn() {
   const json = {

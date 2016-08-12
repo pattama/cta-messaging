@@ -1,6 +1,6 @@
 'use strict';
 
-const messaging = require('cta-messaging')();
+const messaging = require('../../lib')();
 messaging.info('test')
 .then(function(response) {
   console.log('response: ', response);
