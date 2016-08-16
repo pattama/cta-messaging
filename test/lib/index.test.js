@@ -6,13 +6,7 @@ describe('Messaging Tool Class Wrapper', () => {
   it('should call main class with default params', () => {
     const m = o.lib();
     o.assert.instanceOf(m, o.rmq);
-    o.assert.deepEqual(m.configuration, {
-      name: 'cta-messaging',
-      properties: {
-        provider: 'rabbitmq',
-      },
-      singleton: true,
-    });
+    o.assert.strictEqual(m.configuration.properties.provider, 'rabbitmq');
   });
   it('should call main class with custom params', () => {
     const dependencies = {
