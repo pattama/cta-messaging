@@ -15,7 +15,7 @@ module.exports = {
   providers: require('../lib/providers'),
   rmq: require('../lib/providers/rabbitmq'),
   http: require('../lib/providers/http'),
-  request: require('request-promise-native'),
+  request: require('request'),
   json: function() {
     return {
       id: shortid.generate(),

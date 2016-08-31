@@ -39,7 +39,8 @@
     "request": "^2.74.0",
     "request-promise": "^4.1.1",
     "request-promise-native": "^1.0.3",
-    "shortid": "~2.2.4"
+    "shortid": "~2.2.4",
+    "superagent": "^2.2.0"
   },
   "sourceDependencies": {
     "cta-tool": "git+ssh://git@git.sami.int.thomsonreuters.com:compass/cta-tool.git",
