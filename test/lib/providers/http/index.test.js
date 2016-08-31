@@ -1,15 +1,14 @@
 'use strict';
 
 const o = require('../../../common');
-
+const http = new o.http({}, {
+  name: 'http',
+  properties: {
+    url: 'http://localhost:3100',
+  },
+});
 describe('http provider', () => {
   context('when instantiated', () => {
-    const http = new o.http({}, {
-      name: 'http',
-      properties: {
-        url: 'http://localhost:3100',
-      },
-    });
     it('should have express dependency', () => {
       o.assert.property(http, 'express');
     });
@@ -31,5 +30,31 @@ describe('http provider', () => {
     it('should set fullyInitialized property', () => {
       o.assert.isOk(http.fullyInitialized);
     });
+  });
+  context('main methods', () => {
+    const _request = o.sinon.stub(o, 'request', (obj) => {
+      console.log(obj);
+    });
+    ['produce', 'get', 'consume', 'publish', 'subscribe', 'ack', 'nack', 'info', 'cancel'].forEach((method) => {
+      it(method, (done) => {
+        const params = o.shortid.generate();
+        http[method](params)
+        .then(() => {
+          o.sinon.calledWith(_request, {
+            method: 'POST',
+            uri: http.config.url,
+            body: {
+              method: method,
+              params: params,
+            },
+            json: true,
+          });
+          done();
+        }).catch((err) => {
+          done(err);
+        });
+      });
+    });
+    _request.restore();
   });
 });
