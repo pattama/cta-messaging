@@ -36,6 +36,9 @@
     "amqplib": "~0.4.0",
     "co": "~4.6.0",
     "lodash": "~4.11.0",
+    "request": "^2.74.0",
+    "request-promise": "^4.1.1",
+    "request-promise-native": "^1.0.3",
     "shortid": "~2.2.4"
   },
   "sourceDependencies": {
