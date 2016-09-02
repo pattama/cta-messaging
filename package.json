@@ -36,6 +36,7 @@
     "amqplib": "~0.4.0",
     "co": "~4.6.0",
     "lodash": "~4.11.0",
+    "nedb": "^1.8.0",
     "shortid": "~2.2.4"
   },
   "sourceDependencies": {

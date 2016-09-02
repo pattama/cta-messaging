@@ -1,40 +1,37 @@
 'use strict';
+const messaging = require('../../lib')({}, {
+  name: 'messaging',
+  properties: {
+    provider: 'rabbitmq',
+    parameters: {
+      flushThreshold: 5,
+      flushInterval: 120000,
+    },
+  },
+  singleton: false,
+});
 
-const messaging = require('../../lib')();
-const shortid = require('shortid');
-const queue = shortid.generate();
-messaging._init().then(() => {
-  for (let i = 1; i < 20; i++) {
+messaging.init().then(() => {
+  let i = 0;
+  const interval = setInterval(() => {
+    if (i === 20) {
+      clearInterval(interval);
+      return;
+    }
+    i++;
     messaging.produce({
-      queue: queue,
+      queue: 'buffer_sample',
       json: {
         index: i,
       },
-      buffer: true,
+      buffer: 'file',
     }).then((response) => {
       console.log('response: ', response);
     }, (err) => {
       console.error('error: ', err);
     });
-  }
+  }, 1);
 });
 
 
-let i = 0;
-setInterval(() => {
-  if (i > 50) {
-    return;
-  }
-  i++;
-  messaging.produce({
-    queue: queue,
-    json: {
-      index: i,
-    },
-    buffer: true,
-  }).then((response) => {
-    console.log('response: ', response);
-  }, (err) => {
-    console.error('error: ', err);
-  });
-}, 100);
+
