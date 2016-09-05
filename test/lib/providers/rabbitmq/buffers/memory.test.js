@@ -5,14 +5,14 @@ const config = {
   flushInterval: 500,
   flushThreshold: 10,
 };
+const logger = require('cta-logger')();
 const provider = {
-  logger: require('cta-logger')(),
   produce: () => {
     return Promise.resolve();
   },
 };
-const mainBuffer = new o.buffers.Memory(config, provider);
-const _mProduce = o.sinon.spy(mainBuffer, 'produce');
+const mainBuffer = new o.buffers.Memory(config, provider, logger);
+const _mProduce = o.sinon.spy(mainBuffer, '_produce');
 const _pProduce = o.sinon.spy(provider, 'produce');
 
 describe('memory buffer', () => {
@@ -24,7 +24,7 @@ describe('memory buffer', () => {
   });
 
   it('init', () => {
-    mainBuffer.init();
+    mainBuffer._init();
     o.assert(mainBuffer.interval);
   });
 
