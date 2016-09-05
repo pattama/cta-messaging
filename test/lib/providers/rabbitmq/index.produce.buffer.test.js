@@ -8,35 +8,42 @@ describe('rabbitmq produce with buffer', () => {
       properties: {
         provider: 'rabbitmq',
         parameters: {
-          flushInterval: 100,
-          flushThreshold: 10000,
+          buffer: {
+            flushInterval: 100,
+            flushThreshold: 10000,
+          },
         },
       },
       singleton: false,
     });
     const queue = o.shortid.generate();
-    it('should send all messages in buffer and flush it', (done) => {
+    it('should produce messages in buffer', (done) => {
       return o.co(function* () {
         yield rmq.init();
-        let index = 0;
+        const spy = o.sinon.spy();
+        yield rmq.consume({
+          queue: queue,
+          cb: spy,
+        });
         const start = Date.now();
-        while ((Date.now() - start) < rmq.config.flushInterval) {
+        let index = 0;
+        while ((Date.now() - start) < rmq.config.buffer.flushInterval) {
           index++;
-          const resp = yield rmq.produce({
+          yield rmq.produce({
             queue: queue,
             json: {
               index: index,
             },
-            buffer: true,
+            buffer: 'memory',
           });
-          console.log(resp);
-          o.assert(rmq.buffer.intervals.queues);
-          o.assert.strictEqual(rmq.buffer.queues[queue].length, index);
+          if (index === 0) {
+            o.assert(rmq.buffer.queues.interval);
+          }
         }
         setTimeout(() => {
-          o.assert.strictEqual(rmq.buffer.queues[queue].length, 0);
+          o.sinon.assert.calledOnce(spy);
           done();
-        }, 100);
+        }, rmq.config.buffer.flushInterval);
       }).catch((err) => {
         done(err);
       });
@@ -48,33 +55,36 @@ describe('rabbitmq produce with buffer', () => {
       properties: {
         provider: 'rabbitmq',
         parameters: {
-          flushInterval: 10000,
-          flushThreshold: 10,
+          buffer: {
+            flushInterval: 10000,
+            flushThreshold: 10,
+          },
         },
       },
       singleton: false,
     });
     const queue = o.shortid.generate();
-    it('should send all messages in buffer and flush it', (done) => {
+    it('should produce messages in buffer', (done) => {
       return o.co(function* () {
         yield rmq.init();
+        const spy = o.sinon.spy();
+        yield rmq.consume({
+          queue: queue,
+          cb: spy,
+        });
         let index = 0;
-        while (index < rmq.config.flushThreshold) {
+        while (index < rmq.config.buffer.flushThreshold) {
           index++;
-          const resp = yield rmq.produce({
+          yield rmq.produce({
             queue: queue,
             json: {
               index: index,
             },
-            buffer: true,
+            buffer: 'memory',
           });
-          console.log(resp);
-          if (index < rmq.config.flushThreshold) {
-            o.assert.strictEqual(rmq.buffer.queues[queue].length, index);
-          }
         }
         setTimeout(() => {
-          o.assert.strictEqual(rmq.buffer.queues[queue].length, 0);
+          o.sinon.assert.calledOnce(spy);
           done();
         }, 100);
       }).catch((err) => {

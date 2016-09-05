@@ -1,7 +1,7 @@
 'use strict';
 
 const o = require('../../../common');
-describe('rabbitmq publish with buffer', () => {
+describe.skip('rabbitmq publish with buffer', () => {
   context('when flushInterval is reached', () => {
     const rmq = new o.rmq({}, {
       name: 'rmq',
