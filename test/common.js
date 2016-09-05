@@ -3,6 +3,7 @@
 const shortid = require('shortid');
 
 module.exports = {
+  os: require('os'),
   amqp: require('amqplib/callback_api'),
   assert: require('chai').assert,
   expect: require('chai').expect,
@@ -16,6 +17,7 @@ module.exports = {
   rmq: require('../lib/providers/rabbitmq'),
   buffers: {
     Memory: require('../lib/providers/rabbitmq/buffers/memory'),
+    File: require('../lib/providers/rabbitmq/buffers/file'),
   },
   json: function() {
     return {
