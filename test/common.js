@@ -14,6 +14,9 @@ module.exports = {
   lib: require('../lib'),
   providers: require('../lib/providers'),
   rmq: require('../lib/providers/rabbitmq'),
+  buffers: {
+    Memory: require('../lib/providers/rabbitmq/buffers/memory'),
+  },
   json: function() {
     return {
       id: shortid.generate(),
