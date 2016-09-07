@@ -20,22 +20,23 @@ describe('file buffer', () => {
   it('instantiation', () => {
     o.assert.deepEqual(mainBuffer.config, config);
     o.assert.deepEqual(mainBuffer.provider, provider);
-    o.assert.deepEqual(mainBuffer.queues, {});
+    o.assert.deepEqual(mainBuffer.data.queue, {});
+    o.assert.deepEqual(mainBuffer.data.topic, {});
     o.assert.strictEqual(mainBuffer.interval, null);
     o.assert.instanceOf(mainBuffer.db, require('nedb'));
   });
 
   it('init', () => {
-    mainBuffer._init();
+    mainBuffer._init('queue');
     o.assert(mainBuffer.interval);
   });
 
-  it('apend one message', (done) => {
-    mainBuffer.apend({
+  it('append one message', (done) => {
+    mainBuffer.append({
       queue: 'abc',
       json: {a: 1, b: 2},
-    }).then(() => {
-      o.assert.deepEqual(mainBuffer.queues, {abc: 1});
+    }, 'queue').then(() => {
+      o.assert.deepEqual(mainBuffer.data.queue, {abc: 1});
       o.sinon.assert.notCalled(_mProduce);
       o.sinon.assert.notCalled(_pProduce);
       let calls = 1;
@@ -48,6 +49,8 @@ describe('file buffer', () => {
           done();
         }
       }, config.flushInterval);
-    });
+    }).catch((err) => {
+      done(err);
+    })
   });
 });

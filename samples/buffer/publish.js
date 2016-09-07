@@ -4,10 +4,8 @@ const messaging = require('../../lib')({}, {
   properties: {
     provider: 'rabbitmq',
     parameters: {
-      buffer: {
-        flushThreshold: 500,
-        flushInterval: 1000,
-      },
+      flushThreshold: 500,
+      flushInterval: 1000,
     },
   },
   singleton: false,
@@ -21,12 +19,12 @@ messaging.init().then(() => {
       return;
     }
     i++;
-    messaging.produce({
-      queue: 'buffer_sample',
+    messaging.publish({
+      topic: 'buffer_sample',
       json: {
         index: i,
       },
-      buffer: 'file',
+      buffer: 'memory',
     }).then((response) => {
       console.log('response: ', response);
     }, (err) => {

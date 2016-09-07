@@ -26,8 +26,8 @@ function cb(json) {
   const res = consumed.join(', ');
   console.log(res, ref.indexOf(res) === 0);
 }
-messaging.consume({
-  queue: 'buffer_sample',
+messaging.subscribe({
+  topic: 'buffer_sample',
   cb: cb,
   ack: 'auto',
 }).then(function(response) {
