@@ -23,7 +23,7 @@ describe('file buffer', () => {
     o.assert.deepEqual(mainBuffer.data.queue, {});
     o.assert.deepEqual(mainBuffer.data.topic, {});
     o.assert.strictEqual(mainBuffer.interval, null);
-    o.assert.instanceOf(mainBuffer.db, require('nedb'));
+    o.assert.instanceOf(mainBuffer.buffer, require('nedb'));
   });
 
   it('init', () => {
