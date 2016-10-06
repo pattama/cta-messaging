@@ -5,7 +5,7 @@ describe('produce/consume in queues', function() {
   it('consume with ack set to resolve', function(done) {
     return o.co(function* coroutine() {
       const provider = o.lib();
-      yield provider._init();
+      yield provider.init();
       const _ack = o.sinon.stub(provider.channel, 'ack');
       const queue = o.shortid.generate();
       const json = {
@@ -38,7 +38,7 @@ describe('produce/consume in queues', function() {
   it('consume with ack set to auto', function(done) {
     return o.co(function* coroutine() {
       const provider = o.lib();
-      yield provider._init();
+      yield provider.init();
       const _ack = o.sinon.stub(provider.channel, 'ack');
       const queue = o.shortid.generate();
       const json = {
