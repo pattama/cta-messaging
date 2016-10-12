@@ -19,6 +19,7 @@ describe('produce', function() {
       console.log('> info1: ', info1);
       yield o.sleep(2000);
       const info2 = yield io.info(queue);
+      o.assert.property(info2.result, 'error');
       console.log('> info2: ', info2);
       done();
     })
