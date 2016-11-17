@@ -29,7 +29,8 @@ describe('memory buffer', () => {
     o.assert(mainBuffer.interval);
   });
 
-  it('append one message', (done) => {
+  it('append one message', function(done) {
+    this.timeout(2000 + config.flushInterval);
     mainBuffer.append({
       queue: 'def',
       json: {c: 3, d: 4},
