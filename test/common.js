@@ -4,7 +4,7 @@ const shortid = require('shortid');
 
 module.exports = {
   os: require('os'),
-  amqp: require('amqplib/callback_api'),
+  amqp: require('amqplib'),
   assert: require('chai').assert,
   expect: require('chai').expect,
   sinon: require('sinon'),

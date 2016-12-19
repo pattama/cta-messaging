@@ -6,7 +6,7 @@ describe('produce/consume in queues', function() {
     return o.co(function* coroutine() {
       const provider = o.lib();
       yield provider.init();
-      const _ack = o.sinon.stub(provider.channel, 'ack');
+      const _ack = o.sinon.stub(provider.consumersChannel, 'ack');
       const queue = o.shortid.generate();
       const json = {
         id: '01',
@@ -39,7 +39,7 @@ describe('produce/consume in queues', function() {
     return o.co(function* coroutine() {
       const provider = o.lib();
       yield provider.init();
-      const _ack = o.sinon.stub(provider.channel, 'ack');
+      const _ack = o.sinon.stub(provider.consumersChannel, 'ack');
       const queue = o.shortid.generate();
       const json = {
         id: '01',

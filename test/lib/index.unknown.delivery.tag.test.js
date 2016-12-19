@@ -7,8 +7,7 @@ const queue = o.shortid.generate();
 describe('Handle unknown delivery tag', function() {
   it('should redeliver non acked message', function(done) {
     return o.co(function* coroutine() {
-      yield io._connect(false);
-      yield io._channel(false);
+      yield io.init();
       yield io.produce({
         queue: queue,
         json: {id: 'a'},
@@ -52,8 +51,7 @@ describe('Handle unknown delivery tag', function() {
 
   it('should not get an already offline acked message', function(done) {
     return o.co(function* coroutine() {
-      yield io._connect(true);
-      yield io._channel(true);
+      yield io.init();
       const res = yield io.get({
         queue: queue,
       });

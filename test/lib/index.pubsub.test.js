@@ -5,6 +5,7 @@ const o = require('../common');
 describe('publish/subscribe on topics', function() {
   const io = o.lib();
   it('publish and subscribe on one topic foo', function(done) {
+    this.timeout(10000);
     return o.co(function* coroutine() {
       const spy = o.sinon.spy();
       const sub = yield io.subscribe({
@@ -18,8 +19,10 @@ describe('publish/subscribe on topics', function() {
         json: json,
       });
       o.assert.property(pub, 'result');
-      o.sinon.assert.calledWith(spy, json);
-      done();
+      setTimeout(() => {
+        o.sinon.assert.called(spy);
+        done();
+      },2000);
     })
     .catch((err) => {
       done(err);
