@@ -2,10 +2,10 @@
 
 const messaging = require('../../lib')();
 function cb(json, dependencies) {
-  return new Promise((resolve) => {
+  return new Promise((resolve, reject) => {
     dependencies.logger.info('Called consumer callback');
     setTimeout(function() {
-      resolve(json);
+      reject(json);
     }, 2000);
   });
 }
