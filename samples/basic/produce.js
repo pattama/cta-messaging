@@ -3,7 +3,7 @@
 const messaging = require('../../lib')();
 messaging.produce({
   queue: 'cta-produce-sample',
-  json: {
+  content: {
     data: new Date().toISOString(),
   },
 }).then(function(response) {

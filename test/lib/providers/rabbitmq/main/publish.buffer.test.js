@@ -24,7 +24,7 @@ describe('publish/subscribe', function() {
   it('should publish to file buffer then to exchange', function(done) {
     o.co(function * () {
       const topic = o.topic();
-      const json = o.json();
+      const content = o.json();
       const cb = () => { done(); };
       const spy = o.sinon.spy(cb);
       yield mq.subscribe({
@@ -33,7 +33,7 @@ describe('publish/subscribe', function() {
       });
       yield mq.publish({
         topic: topic,
-        json: json,
+        content: content,
         buffer: 'file',
       });
       o.sinon.assert.notCalled(spy);
@@ -46,7 +46,7 @@ describe('publish/subscribe', function() {
   it('should publish to memory buffer then to exchange', function(done) {
     o.co(function *() {
       const topic = o.topic();
-      const json = o.json();
+      const content = o.json();
       const cb = () => { done(); };
       const spy = o.sinon.spy(cb);
       yield mq.subscribe({
@@ -56,7 +56,7 @@ describe('publish/subscribe', function() {
       });
       yield mq.publish({
         topic: topic,
-        json: json,
+        content: content,
         buffer: 'memory',
       });
       o.sinon.assert.notCalled(spy);

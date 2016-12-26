@@ -24,7 +24,7 @@ describe('produce/consume', function() {
   it('should produce to file buffer first, then to queue and consume from it', function(done) {
     o.co(function * () {
       const queue = o.queue();
-      const json = o.json();
+      const content = o.json();
       const cb = () => { done(); };
       const spy = o.sinon.spy(cb);
       yield mq.consume({
@@ -34,7 +34,7 @@ describe('produce/consume', function() {
       });
       yield mq.produce({
         queue: queue,
-        json: json,
+        content: content,
         buffer: 'file',
       });
       o.sinon.assert.notCalled(spy);
@@ -47,7 +47,7 @@ describe('produce/consume', function() {
   it('should produce to memory buffer first, then to queue and consume from it', function(done) {
     o.co(function *() {
       const queue = o.queue();
-      const json = o.json();
+      const content = o.json();
       const cb = () => { done(); };
       const spy = o.sinon.spy(cb);
       yield mq.consume({
@@ -57,7 +57,7 @@ describe('produce/consume', function() {
       });
       yield mq.produce({
         queue: queue,
-        json: json,
+        content: content,
         buffer: 'memory',
       });
       o.sinon.assert.notCalled(spy);

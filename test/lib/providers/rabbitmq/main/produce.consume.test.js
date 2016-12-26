@@ -8,7 +8,7 @@ describe('produce/consume', function() {
   it('should produce to queue and consume from it', function(done) {
     o.co(function * () {
       const queue = o.queue();
-      const json = o.json();
+      const content = o.json();
       yield mq.consume({
         queue: queue,
         cb: () => {
@@ -19,7 +19,7 @@ describe('produce/consume', function() {
       });
       yield mq.produce({
         queue: queue,
-        json: json,
+        content: content,
       });
     })
     .catch((err) => {
@@ -37,7 +37,7 @@ describe('produce/consume', function() {
       o.sinon.stub(mq, '_channel', () => { return Promise.resolve(channel); });
       yield mq.produce({
         queue: queue,
-        json: json,
+        content: content,
       });
       done('should not be here');
     })
@@ -51,13 +51,13 @@ describe('produce/consume', function() {
   it('should catch produce error and reject', function(done) {
     o.co(function *() {
       const queue = o.queue();
-      const json = o.json();
+      const content = o.json();
       yield mq._connect(false);
       const channel = yield mq._channel();
       o.sinon.stub(mq, '_channel', () => { throw new Error('mock channel error') });
       yield mq.produce({
         queue: queue,
-        json: json,
+        content: content,
       });
       done('should not be here');
     })
@@ -71,7 +71,7 @@ describe('produce/consume', function() {
   it('should not call consumer callback when received message is null', function(done) {
     o.co(function *() {
       const queue = o.queue();
-      const json = o.json();
+      const content = o.json();
       yield mq._connect(false);
       const channel = yield mq._channel();
       o.sinon.stub(channel, 'consume', (queue, callback) => {
@@ -90,7 +90,7 @@ describe('produce/consume', function() {
       channel.consume.restore();
       yield mq.produce({
         queue: queue,
-        json: json,
+        content: content,
       });
       o.sinon.assert.notCalled(spy);
       done();
@@ -103,7 +103,7 @@ describe('produce/consume', function() {
   it('should not call consumer callback when processed message is null', function(done) {
     o.co(function *() {
       const queue = o.queue();
-      const json = o.json();
+      const content = o.json();
       yield mq._connect(false);
       o.sinon.stub(mq, '_processMsg', () => {
         return null;
@@ -118,7 +118,7 @@ describe('produce/consume', function() {
       mq._processMsg.restore();
       yield mq.produce({
         queue: queue,
-        json: json,
+        content: content,
       });
       o.sinon.assert.notCalled(spy);
       done();
@@ -134,7 +134,7 @@ describe('produce/consume', function() {
     o.co(function* coroutine() {
       yield mq.produce({
         queue: queue,
-        json: o.json(),
+        content: o.json(),
         autoDelete: true,
         expires: 1000,
       });

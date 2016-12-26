@@ -1,11 +1,11 @@
 'use strict';
 
 const messaging = require('../../lib')();
-function cb(json, dependencies) {
+function cb(content, dependencies) {
   return new Promise((resolve, reject) => {
     dependencies.logger.info('Called consumer callback');
     setTimeout(function() {
-      reject(json);
+      reject(content);
     }, 2000);
   });
 }

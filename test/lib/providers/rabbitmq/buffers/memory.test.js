@@ -33,7 +33,7 @@ describe('memory buffer', () => {
     this.timeout(2000 + config.flushInterval);
     mainBuffer.append({
       queue: 'def',
-      json: {c: 3, d: 4},
+      content: {c: 3, d: 4},
     }, 'queue').then(() => {
       o.assert.deepEqual(mainBuffer.data.queue, {def: {
         counter: 1,

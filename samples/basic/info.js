@@ -5,7 +5,7 @@ co(function * () {
   const messaging = require('../../lib')();
   const produceResp = yield messaging.produce({
     queue: 'cta-info-sample',
-    json: {
+    content: {
       data: new Date().toISOString(),
     },
   });

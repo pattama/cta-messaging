@@ -35,7 +35,7 @@ describe('file buffer', () => {
     this.timeout(2000 + config.flushInterval);
     mainBuffer.append({
       queue: 'abc',
-      json: {a: 1, b: 2},
+      content: {a: 1, b: 2},
     }, 'queue').then(() => {
       o.assert.deepEqual(mainBuffer.data.queue, {abc: 1});
       o.sinon.assert.notCalled(_mProduce);
