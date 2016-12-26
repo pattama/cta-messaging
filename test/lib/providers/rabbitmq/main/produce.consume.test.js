@@ -2,32 +2,18 @@
 
 const o = require('../../../../common');
 
-describe('produce', function() {
-  let mq;
-  before(function() {
-    mq = new o.lib({}, {
-      name: 'messaging',
-      module: 'cta-messaging',
-      properties: {
-        provider: 'rabbitmq',
-        parameters: {
-          url: 'amqp://localhost?heartbeat=60',
-          buffer: {
-            location: o.location(),
-          },
-        },
-      },
-      singleton: false,
-    });
-  });
+describe('produce/consume', function() {
+  const mq = o.mq();
 
-  /*it('should produce to queue and consume from it', function(done) {
+  it('should produce to queue and consume from it', function(done) {
     o.co(function * () {
       const queue = o.queue();
       const json = o.json();
       yield mq.consume({
         queue: queue,
-        cb: () => { done(); },
+        cb: () => {
+          done();
+        },
         prefetch: 1,
         ack: 'auto',
       });
@@ -41,57 +27,11 @@ describe('produce', function() {
     });
   });
 
-  it('should produce to file buffer first, then to queue and consume from it', function(done) {
-    o.co(function * () {
-      const queue = o.queue();
-      const json = o.json();
-      const cb = () => { done(); };
-      const spy = o.sinon.spy(cb);
-      yield mq.consume({
-        queue: queue,
-        cb: cb,
-        ack: 'auto',
-      });
-      yield mq.produce({
-        queue: queue,
-        json: json,
-        buffer: 'file',
-      });
-      o.sinon.assert.notCalled(spy);
-    })
-    .catch((err) => {
-      done(err);
-    });
-  });
-
-  it('should produce to memory buffer first, then to queue and consume from it', function(done) {
-    o.co(function *() {
-      const queue = o.queue();
-      const json = o.json();
-      const cb = () => { done(); };
-      const spy = o.sinon.spy(cb);
-      yield mq.consume({
-        queue: queue,
-        cb: cb,
-        ack: 'auto',
-      });
-      yield mq.produce({
-        queue: queue,
-        json: json,
-        buffer: 'memory',
-      });
-      o.sinon.assert.notCalled(spy);
-    })
-    .catch((err) => {
-      done(err);
-    });
-  });
-
   it('should reject when it can not produce', function(done) {
     o.co(function *() {
       const queue = o.queue();
       const json = o.json();
-      yield mq._connect();
+      yield mq._connect(false);
       const channel = yield mq._channel();
       o.sinon.stub(channel, 'sendToQueue', () => { return false; });
       o.sinon.stub(mq, '_channel', () => { return Promise.resolve(channel); });
@@ -112,7 +52,7 @@ describe('produce', function() {
     o.co(function *() {
       const queue = o.queue();
       const json = o.json();
-      yield mq._connect();
+      yield mq._connect(false);
       const channel = yield mq._channel();
       o.sinon.stub(mq, '_channel', () => { throw new Error('mock channel error') });
       yield mq.produce({
@@ -132,11 +72,13 @@ describe('produce', function() {
     o.co(function *() {
       const queue = o.queue();
       const json = o.json();
-      yield mq.init();
-      o.sinon.stub(mq.consumersChannel, 'consume', (queue, callback) => {
+      yield mq._connect(false);
+      const channel = yield mq._channel();
+      o.sinon.stub(channel, 'consume', (queue, callback) => {
         callback(null);
         return Promise.resolve({});
       });
+      o.sinon.stub(mq, '_channel').returns(Promise.resolve(channel));
       const cb = () => { };
       const spy = o.sinon.spy(cb);
       yield mq.consume({
@@ -144,7 +86,8 @@ describe('produce', function() {
         cb: cb,
         ack: 'auto',
       });
-      mq.consumersChannel.consume.restore();
+      mq._channel.restore();
+      channel.consume.restore();
       yield mq.produce({
         queue: queue,
         json: json,
@@ -161,7 +104,7 @@ describe('produce', function() {
     o.co(function *() {
       const queue = o.queue();
       const json = o.json();
-      yield mq.init();
+      yield mq._connect(false);
       o.sinon.stub(mq, '_processMsg', () => {
         return null;
       });
@@ -183,31 +126,25 @@ describe('produce', function() {
     .catch((err) => {
       done(err);
     });
-  });*/
+  });
 
-  it('should throw error when consumer callback fails', function(done) {
-    o.co(function * () {
-      const queue = o.queue();
-      const json = o.json();
-      const cb = () => {
-        throw new Error('mock cb error');
-        done();
-        //return Promise.resolve();
-        //throw new Error('mock cb error');
-      };
-      //const spy = o.sinon.spy(cb);
-      yield mq.consume({
-        queue: queue,
-        cb: cb,
-        ack: 'auto',
-      });
+  it('expires', function(done) {
+    this.timeout(5000);
+    const queue = o.queue();
+    o.co(function* coroutine() {
       yield mq.produce({
         queue: queue,
-        json: json,
+        json: o.json(),
+        autoDelete: true,
+        expires: 1000,
       });
-      o.sleep(2000);
-      //o.sinon.assert.called(spy);
-      //done();
+      const info1 = yield mq.info(queue);
+      console.log('> info1: ', info1);
+      yield o.sleep(2000);
+      const info2 = yield mq.info(queue);
+      o.assert.property(info2.result, 'error');
+      console.log('> info2: ', info2);
+      done();
     })
     .catch((err) => {
       done(err);

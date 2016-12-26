@@ -1,5 +1,6 @@
 'use strict';
-
+const sinon = require('sinon');
+require('sinon-as-promised');
 const shortid = require('shortid');
 const path = require('path');
 const os = require('os');
@@ -11,7 +12,7 @@ module.exports = {
   amqp: require('amqplib'),
   assert: require('chai').assert,
   expect: require('chai').expect,
-  sinon: require('sinon'),
+  sinon: sinon,
   shortid: shortid,
   tool: require('cta-tool'),
   co: require('co'),
