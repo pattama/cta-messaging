@@ -5,14 +5,14 @@ function cb(content, dependencies) {
   return new Promise((resolve, reject) => {
     dependencies.logger.info('Called consumer callback');
     setTimeout(function() {
-      reject(content);
+      resolve(content);
     }, 2000);
   });
 }
 messaging.consume({
   queue: 'cta-produce-sample',
   cb: cb,
-  ack: 'resolve',
+  ack: 'auto',
 }).then(function(response) {
   console.log('response: ', response);
 }, function(err) {

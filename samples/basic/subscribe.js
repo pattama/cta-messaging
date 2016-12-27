@@ -3,8 +3,8 @@
 const messaging = require('../../lib')();
 function cb(content, dependencies) {
   return new Promise((resolve) => {
-    dependencies.logger.info('Called subscriber callback');
     setTimeout(function() {
+      dependencies.logger.info('Ending subscriber callback');
       resolve(content);
     }, 2000);
   });
