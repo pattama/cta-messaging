@@ -31,4 +31,48 @@ describe('get', function() {
       done(err);
     });
   });
+
+  it('should not process message when queue is empty', function(done) {
+    o.co(function *() {
+      const queue = o.queue();
+      const mq = o.mq();
+      yield mq._connect(true);
+      const channel = yield mq._channel();
+      o.sinon.stub(channel, 'get', function() {
+        return Promise.resolve(null);
+      });
+      o.sinon.stub(mq, '_channel', () => {
+        return Promise.resolve(channel);
+      });
+      const data = yield mq.get({
+        queue: queue,
+      });
+      mq._channel.restore();
+      o.assert.isNull(data.result.content);
+      //console.log('result: ', result);
+      done();
+    })
+    .catch(function(err) {
+      done(err);
+    });
+  });
+
+  it('should resolve null content when create channel fails', function(done) {
+    const mq = o.mq();
+    o.co(function *() {
+      const queue = o.queue();
+      o.sinon.stub(mq, '_channel', () => {
+        return Promise.reject('some_error');
+      });
+      const data = yield mq.get({
+        queue: queue,
+      });
+      o.assert.isNull(data.result.content);
+      o.assert.strictEqual(data.result.error, 'some_error');
+      done();
+    })
+    .catch(function(err) {
+      done(err);
+    });
+  });
 });
