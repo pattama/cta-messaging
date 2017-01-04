@@ -150,4 +150,25 @@ describe('produce/consume', function() {
       done(err);
     });
   });
+
+  it('should reject when it can not send to queue', function(done) {
+    o.co(function *() {
+      const queue = o.queue();
+      const content = o.json();
+      yield mq._connect(true);
+      const channel = yield mq._channel();
+      o.sinon.stub(channel, 'sendToQueue').returns(false);
+      o.sinon.stub(mq, '_channel').returns(Promise.resolve(channel));
+      yield mq.produce({
+        queue: queue,
+        content: content,
+      });
+      done('should not be here');
+    })
+    .catch((err) => {
+      o.assert(err);
+      mq._channel.restore();
+      done();
+    });
+  });
 });
