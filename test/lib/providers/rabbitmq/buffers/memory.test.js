@@ -1,21 +1,22 @@
 'use strict';
 
 const o = require('../../../../common');
-const config = {
-  flushInterval: 500,
-  flushThreshold: 10,
-};
-const logger = require('cta-logger')();
-const provider = {
-  produce: () => {
-    return Promise.resolve();
-  },
-  publish: () => {
-    return Promise.resolve();
-  },
-};
 
 describe('memory buffer', function() {
+  const config = {
+    flushInterval: 500,
+    flushThreshold: 10,
+  };
+  const logger = require('cta-logger')();
+  const provider = {
+    produce: () => {
+      return Promise.resolve();
+    },
+    publish: () => {
+      return Promise.resolve();
+    },
+  };
+
   let mainBuffer;
   let _mProduce;
   let _pProduce;
@@ -29,6 +30,7 @@ describe('memory buffer', function() {
   });
 
   afterEach(function(){
+    mainBuffer.data = {};
     clearInterval(mainBuffer.interval);
     mainBuffer._produce.restore();
     provider.produce.restore();
@@ -49,7 +51,6 @@ describe('memory buffer', function() {
   });
 
   it('append one message', function(done) {
-    this.timeout(2000 + config.flushInterval);
     mainBuffer.append({
       queue: 'some_queue',
       content: {c: 3, d: 4},
@@ -58,21 +59,10 @@ describe('memory buffer', function() {
         counter: 1,
         messages: [{c: 3, d: 4}],
       }});
-      o.sinon.assert.notCalled(_mProduce);
-      o.sinon.assert.notCalled(_pProduce);
-      let calls = 1;
-      const interval = setInterval(() => {
-        o.assert.strictEqual(_mProduce.callCount, calls);
-        o.assert.strictEqual(_pProduce.callCount, 1);
-        calls++;
-        if (calls >= 5) {
-          clearInterval(interval);
-          done();
-        }
-      }, config.flushInterval);
+      done();
     }).catch((err) => {
       done(err);
-    })
+    });
   });
 
   it('append with no topic', function(done) {
@@ -89,7 +79,7 @@ describe('memory buffer', function() {
       done();
     }).catch((err) => {
       done(err);
-    })
+    });
   });
 
   it('should produce when threshold is reached', function(done) {

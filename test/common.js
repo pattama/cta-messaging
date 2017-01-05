@@ -8,7 +8,11 @@ const providers = require('../lib/providers');
 const lib = require('../lib');
 
 module.exports = {
+  fs: require('fs'),
+  path: require('path'),
   os: require('os'),
+  mkdirp: require('mkdirp'),
+  rmdir: require('rmdir'),
   amqp: require('amqplib'),
   assert: require('chai').assert,
   expect: require('chai').expect,
