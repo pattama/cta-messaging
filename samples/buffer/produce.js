@@ -23,7 +23,7 @@ messaging.init().then(() => {
     i++;
     messaging.produce({
       queue: 'buffer_sample',
-      json: {
+      content: {
         index: i,
       },
       buffer: 'file',

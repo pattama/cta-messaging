@@ -3,9 +3,8 @@
 const messaging = require('../../lib')();
 messaging.produce({
   queue: 'cta-produce-sample',
-  json: {
-    job: 'run command',
-    cmd: 'ls',
+  content: {
+    data: new Date().toISOString(),
   },
 }).then(function(response) {
   console.log('response: ', response);
