@@ -21,7 +21,7 @@ messaging.init().then(() => {
     i++;
     messaging.publish({
       topic: 'buffer_sample',
-      json: {
+      content: {
         index: i,
       },
       buffer: 'memory',

@@ -1,8 +1,8 @@
 'use strict';
 
 const messaging = require('../../lib')();
-function cb(json) {
-  console.log(json);
+function cb(content) {
+  console.log(content);
 }
 messaging.subscribe({
   cb: cb,

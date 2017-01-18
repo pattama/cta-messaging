@@ -1,9 +1,12 @@
 'use strict';
 
 const messaging = require('../../lib')();
-function cb(json) {
+function cb(content, dependencies) {
   return new Promise((resolve) => {
-    resolve(json);
+    setTimeout(function() {
+      dependencies.logger.info('Ending subscriber callback');
+      resolve(content);
+    }, 2000);
   });
 }
 messaging.subscribe({

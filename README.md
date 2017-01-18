@@ -55,7 +55,7 @@ This method produces a message in a queue for consumers to consume from.
 const messaging = require('cta-messaging')();
 messaging.produce({
   queue: 'cta-produce-sample',
-  json: {
+  content: {
     job: 'run command',
     cmd: 'ls',
   },
@@ -76,11 +76,11 @@ A consumer will proceed with the next message in the queue only when the first m
 
 ````javascript
 const messaging = require('cta-messaging')();
-function cb(json) {
+function cb(content) {
   return new Promise((resolve) => {
     // adding timeout to simulate job running
     setTimeout(function() {
-      resolve(json);
+      resolve(content);
     }, 500);
   });
 }
@@ -105,9 +105,9 @@ Unlike a consumer, a subscriber will proceed with all messages in the queue.
 ````javascript
 'use strict';
 const messaging = require('cta-messaging')();
-function cb(json) {
+function cb(content) {
   return new Promise((resolve) => {
-    resolve(json);
+    resolve(content);
   });
 }
 messaging.subscribe({
@@ -129,14 +129,14 @@ This method publishes a message in an exchange for subscribers to consume from.
 ````javascript
 'use strict';
 const messaging = require('cta-messaging')();
-const json = {
+const content = {
   id: '123',
   status: 'ok',
   description: 'simple test',
 };
 messaging.publish({
   topic: 'cta-subscribe-sample',
-  json: json,
+  content: content,
 }).then(function(response) {
   console.log('response: ', response);
 }, function(err) {
