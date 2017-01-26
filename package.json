@@ -7,6 +7,7 @@
   "scripts": {
     "test": "_mocha test/index.js",
     "codecoverage": "istanbul cover node_modules/mocha/bin/_mocha -- -R spec && opener ./coverage/lcov-report/index.html",
+    "lint": "eslint --quiet lib test",
     "docs": "jsdoc --readme README.md lib -r -d docs && opener ./docs/index.html"
   },
   "repository": {
