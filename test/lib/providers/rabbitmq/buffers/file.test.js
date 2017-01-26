@@ -24,7 +24,7 @@ describe('file buffer', function() {
   let _pPublish;
 
   beforeEach(function() {
-    config.location = o.path.join(o.os.tmpDir(), 'cta-buffer', o.shortid.generate());
+    config.location = o.path.join(o.os.tmpDir(), o.shortid.generate());
     o.mkdirp.sync(config.location);
     mainBuffer = new o.buffers.File(config, provider, logger);
     _mProduce = o.sinon.spy(mainBuffer, '_produce');
@@ -34,9 +34,9 @@ describe('file buffer', function() {
 
   afterEach(function(done){
     clearInterval(mainBuffer.interval);
-    mainBuffer._produce.restore();
-    provider.produce.restore();
-    provider.publish.restore();
+    _mProduce.restore();
+    _pProduce.restore();
+    _pPublish.restore();
     setTimeout(function() {
       o.rmdir(mainBuffer.config.location, function() {
         done();
