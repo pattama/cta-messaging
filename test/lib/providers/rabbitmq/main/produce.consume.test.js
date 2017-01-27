@@ -30,7 +30,7 @@ describe('produce/consume', function() {
   it('should reject when it can not produce', function(done) {
     o.co(function *() {
       const queue = o.queue();
-      const json = o.json();
+      const content = o.json();
       yield mq._connect(false);
       const channel = yield mq._channel();
       o.sinon.stub(channel, 'sendToQueue', () => { return false; });
@@ -53,8 +53,7 @@ describe('produce/consume', function() {
       const queue = o.queue();
       const content = o.json();
       yield mq._connect(false);
-      const channel = yield mq._channel();
-      o.sinon.stub(mq, '_channel', () => { throw new Error('mock channel error') });
+      o.sinon.stub(mq, '_channel', () => { throw new Error('mock channel error'); });
       yield mq.produce({
         queue: queue,
         content: content,

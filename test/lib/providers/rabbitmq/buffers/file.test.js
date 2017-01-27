@@ -40,7 +40,7 @@ describe('file buffer', function() {
     setTimeout(function() {
       o.rmdir(mainBuffer.config.location, function() {
         done();
-      })
+      });
     }, 100);
   });
 

@@ -33,7 +33,7 @@ describe('reconnect consumers', function() {
       const queue = o.queue();
       const mq = o.mq();
       mq.config.reConnectAfter = 500;
-      const consumer = yield mq.consume({
+      yield mq.consume({
         queue: queue,
         cb: () => {},
       });

@@ -32,9 +32,9 @@ describe('memory buffer', function() {
   afterEach(function(){
     mainBuffer.data = {};
     clearInterval(mainBuffer.interval);
-    mainBuffer._produce.restore();
-    provider.produce.restore();
-    provider.publish.restore();
+    _mProduce.restore();
+    _pProduce.restore();
+    _pPublish.restore();
   });
 
   it('instantiation', () => {
