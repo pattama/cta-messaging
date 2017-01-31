@@ -49,8 +49,7 @@ describe('publish/subscribe', function() {
       const topic = o.topic();
       const content = o.json();
       yield mq._connect(false);
-      const channel = yield mq._channel();
-      o.sinon.stub(mq, '_channel', () => { throw new Error('mock channel error') });
+      o.sinon.stub(mq, '_channel', () => { throw new Error('mock channel error'); });
       yield mq.publish({
         topic: topic,
         content: content,

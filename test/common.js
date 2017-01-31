@@ -1,6 +1,5 @@
 'use strict';
 const sinon = require('sinon');
-require('sinon-as-promised');
 const shortid = require('shortid');
 const path = require('path');
 const os = require('os');

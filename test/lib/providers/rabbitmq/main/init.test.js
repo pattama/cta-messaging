@@ -18,5 +18,5 @@ describe('init', function() {
       o.assert.strictEqual(err, 'some_error');
       done();
     });
-  })
+  });
 });

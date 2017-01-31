@@ -8,6 +8,7 @@ describe('lib/providers/rabbitmq/index', function() {
   it('constructor', function() {
     o.sinon.stub(Rmq.prototype, '_houseKeeping');
     o.sinon.stub(Rmq.prototype, 'init');
+    //eslint-disable-next-line no-unused-vars
     const mq = o.mq();
     o.sinon.assert.called(Rmq.prototype._houseKeeping);
     o.sinon.assert.called(Rmq.prototype.init);

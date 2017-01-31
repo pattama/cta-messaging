@@ -41,7 +41,7 @@ describe('process message', function() {
 
   it('should reject when error occurred', function(done) {
     const mq = o.mq();
-    const bufferToJSON = o.sinon.stub(mq, '_bufferToJSON', function() {
+    o.sinon.stub(mq, '_bufferToJSON', function() {
       throw new Error('some_error');
     });
     const error = o.sinon.stub(mq.logger, 'error');
