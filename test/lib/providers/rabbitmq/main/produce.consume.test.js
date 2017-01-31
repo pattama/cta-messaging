@@ -137,12 +137,10 @@ describe('produce/consume', function() {
         autoDelete: true,
         expires: 1000,
       });
-      const info1 = yield mq.info(queue);
-      console.log('> info1: ', info1);
       yield o.sleep(2000);
       const info2 = yield mq.info(queue);
       o.assert.property(info2.result, 'error');
-      console.log('> info2: ', info2);
+      // console.log('> info2: ', info2);
       done();
     })
     .catch((err) => {

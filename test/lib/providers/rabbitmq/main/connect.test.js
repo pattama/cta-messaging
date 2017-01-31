@@ -39,16 +39,16 @@ describe('connect', function() {
       yield mq._connect();
       o.assert(mq.connection);
       o.sinon.stub(mq.logger, 'debug', function() { // catch connection blocked event
-        console.log(arguments);
+        // console.log(arguments);
         mq.logger.debug.restore();
         o.sinon.stub(mq.logger, 'debug', function() { // catch connection unblocked event
-          console.log(arguments);
+          // console.log(arguments);
           mq.logger.debug.restore();
           o.sinon.stub(mq.logger, 'debug', function() { // catch connection error event
-            console.log(arguments);
+            // console.log(arguments);
             mq.logger.debug.restore();
             o.sinon.stub(mq.logger, 'debug', function() { // catch connection close event
-              console.log(arguments);
+              // console.log(arguments);
               mq.logger.debug.restore();
               o.assert.isOk(mq._reConnect.called);
               mq._reConnect.restore();

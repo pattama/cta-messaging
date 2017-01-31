@@ -10,11 +10,11 @@ describe('validate params', function() {
     tests.forEach(function(test) {
       it(test.message, function(done) {
         io[method](test.params)
-          .then(function(data) {
-            console.log('data: ', data);
+          .then(function() {
+            // console.log('data: ', data);
             done('should be rejected!');
-          }, function(err) {
-            console.error('successful expected error: ', err);
+          }, function() {
+            // console.error('successful expected error: ', err);
             done();
           });
       });
