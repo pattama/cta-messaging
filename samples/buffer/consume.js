@@ -16,8 +16,8 @@ const ref = arr.join(', ');
 
 let consumed = [];
 
-function cb(json) {
-  consumed = consumed.concat(json.messages.map((e) => {
+function cb(content) {
+  consumed = consumed.concat(content.messages.map((e) => {
     return e.index;
   }));
   consumed.sort((a, b) => {

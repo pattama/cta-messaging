@@ -21,7 +21,7 @@ describe('Messaging Tool Class Wrapper', () => {
     };
     const m = o.lib(dependencies, configuration);
     o.assert.instanceOf(m, o.rmq);
-    o.assert.deepEqual(m.configuration, configuration);
-    o.assert.deepEqual(m.dependencies, dependencies);
+    o.assert.strictEqual(m.configuration.properties.c, 2);
+    o.assert.property(m.dependencies, 'a');
   });
 });
