@@ -4,7 +4,7 @@ services:
   - frodenas/rabbitmq:latest
   
 variables:
-  RABBITMQ_VHOST: localhost
+  RABBITMQ_VHOST: myhost
 
 stages:
   - build
