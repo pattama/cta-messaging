@@ -4,7 +4,7 @@ services:
   - rabbitmq:latest
   
 variables:
-  - RABBITMQ_DEFAULT_VHOST:localhost
+  RABBITMQ_DEFAULT_VHOST: localhost
 
 stages:
   - build
