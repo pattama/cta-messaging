@@ -1,7 +1,7 @@
 image: node:6.9.1
 
 services:
-  - frodenas/rabbitmq:latest
+  - rabbitmq:latest
   
 variables:
   RABBITMQ_VHOST: myhost
