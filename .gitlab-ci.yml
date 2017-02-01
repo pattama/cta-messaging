@@ -1,5 +1,7 @@
 image: node:6.9.1
-image: rabbitmq
+
+services:
+  - rabbitmq:latest
 
 stages:
   - build
