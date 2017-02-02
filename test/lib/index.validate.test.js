@@ -1,7 +1,7 @@
 'use strict';
 
 const o = require('../common');
-const io = o.lib();
+const io = o.mq();
 const validations = require('./index.validate.testdata.js');
 
 describe('validate params', function() {

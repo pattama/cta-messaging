@@ -1,5 +1,8 @@
 image: node:6.9.1
 
+services:
+  - rabbitmq:latest
+
 stages:
   - build
   - test
@@ -33,9 +36,9 @@ unit_test:
 code_coverage:
   stage: test
   script:
-    - npm run codecoverage
+   - npm run codecoverage
 
 lint:
   stage: test
   script:
-    - npm run lint
+   - npm run lint

@@ -5,8 +5,10 @@ const path = require('path');
 const os = require('os');
 const providers = require('../lib/providers');
 const lib = require('../lib');
+const config = require('./config');
 
 module.exports = {
+  config: config,
   fs: require('fs'),
   path: require('path'),
   os: require('os'),
@@ -38,6 +40,13 @@ module.exports = {
   location: () => { return path.join(os.tmpDir(), shortid.generate()); },
   mq: () => {
     return new lib({}, {
+      name: 'cta-messaging',
+      properties: {
+        provider: 'rabbitmq',
+        parameters: {
+          url: config.rabbitMqUrl,
+        },
+      },
       singleton: false,
     });
   },
