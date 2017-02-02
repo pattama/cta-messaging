@@ -2,8 +2,8 @@
 
 const o = require('../../../../common');
 
-describe('get', function() {
-  const io = o.lib();
+describe('lib/providers/rabbitmq/get', function() {
+  const io = o.mq();
   const content = o.json();
   const queue = o.queue();
 

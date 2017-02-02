@@ -11,7 +11,7 @@ describe('publish/subscribe', function() {
       properties: {
         provider: 'rabbitmq',
         parameters: {
-          url: 'amqp://localhost?heartbeat=60',
+          url: o.config.rabbitMqUrl,
           buffer: {
             location: o.location(),
           },

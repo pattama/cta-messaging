@@ -8,7 +8,7 @@ const lib = require('../lib');
 const config = require('./config');
 
 module.exports = {
-  consif: config,
+  config: config,
   fs: require('fs'),
   path: require('path'),
   os: require('os'),
