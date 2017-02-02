@@ -11,6 +11,7 @@ describe('house keeping', function() {
         properties: {
           provider: 'rabbitmq',
           parameters: {
+            url: o.config.rabbitMqUrl,
             clearInterval: 500,
             clearOffset: 100,
           },
@@ -44,6 +45,7 @@ describe('house keeping', function() {
         properties: {
           provider: 'rabbitmq',
           parameters: {
+            url: o.config.rabbitMqUrl,
             clearInterval: 500,
             clearOffset: 100,
           },

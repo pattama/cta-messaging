@@ -74,7 +74,7 @@ describe('file buffer', function() {
     };
     mainBuffer._init('queue');
     setTimeout(function(){
-      console.log('mainBuffer.data.queue: ', mainBuffer.data.queue);
+      // console.log('mainBuffer.data.queue: ', mainBuffer.data.queue);
       o.assert.deepEqual(mainBuffer.data.queue, {});
       o.assert.strictEqual(Object.keys(mainBuffer.data.topic).length, 0);
       mainBuffer.buffer.find.restore();
@@ -95,7 +95,7 @@ describe('file buffer', function() {
     });
     mainBuffer._init('queue');
     setTimeout(function(){
-      console.log('mainBuffer.data.queue: ', mainBuffer.data.queue);
+      // console.log('mainBuffer.data.queue: ', mainBuffer.data.queue);
       o.assert.strictEqual(mainBuffer.data.queue.some_queue, 2);
       o.assert.strictEqual(Object.keys(mainBuffer.data.topic).length, 0);
       mainBuffer.buffer.find.restore();
