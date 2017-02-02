@@ -2,9 +2,6 @@ image: node:6.9.1
 
 services:
   - rabbitmq:latest
-  
-variables:
-  RABBITMQ_VHOST: myhost
 
 stages:
   - build
