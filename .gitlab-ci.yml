@@ -33,12 +33,12 @@ unit_test:
   script:
     - npm run test
 
-#code_coverage:
+code_coverage:
   stage: test
   script:
    - npm run codecoverage
 
-#lint:
+lint:
   stage: test
   script:
    - npm run lint
