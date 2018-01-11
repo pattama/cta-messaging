@@ -14,6 +14,6 @@ try {
   // console.log('Using default configuration');
 }
 
-config.rabbitMqUrl = custom.rabbitMqUrl || 'amqp://rabbitmq?heartbeat=60', // default to host "rabbitmq" for Gitlab CI docker image to work
+config.rabbitMqUrl = custom.rabbitMqUrl || 'amqp://localhost?heartbeat=60', // default to host "rabbitmq" for Gitlab CI docker image to work
 
 module.exports = config;
