@@ -1,4 +1,7 @@
-# cta-messaging [ ![build status](https://git.sami.int.thomsonreuters.com/compass/cta-messaging/badges/master/build.svg)](https://git.sami.int.thomsonreuters.com/compass/cta-messaging/commits/master) [![coverage report](https://git.sami.int.thomsonreuters.com/compass/cta-messaging/badges/master/coverage.svg)](https://git.sami.int.thomsonreuters.com/compass/cta-messaging/commits/master)
+# cta-messaging
+[![Build Status](https://travis-ci.org/thomsonreuters/cta-messaging.svg?branch=master)](https://travis-ci.org/thomsonreuters/cta-messaging)
+[![Coverage Status](https://coveralls.io/repos/github/thomsonreuters/cta-messaging/badge.svg?branch=master)](https://coveralls.io/github/thomsonreuters/cta-messaging?branch=master)
+[![codecov](https://codecov.io/gh/thomsonreuters/cta-messaging/branch/master/graph/badge.svg)](https://codecov.io/gh/thomsonreuters/cta-messaging)
 
 Messaging Modules for Compass Test Automation, One of Libraries in CTA-OSS Framework
 
